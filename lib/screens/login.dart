@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:loginapp11vedio/homescreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class login extends StatefulWidget {
   login({Key? key}) : super(key: key);
@@ -91,11 +92,9 @@ class _loginState extends State<login> {
                             fontWeight: FontWeight.bold,
                           )),
                     ),
-                   
                     ElevatedButton.icon(
                         onPressed: () {
-                          if (_formkey.currentState!.validate())
-                            saved(context);
+                          if (_formkey.currentState!.validate()) saved(context);
                         },
                         icon: Icon(Icons.check),
                         label: Text('login'))
@@ -107,18 +106,20 @@ class _loginState extends State<login> {
         ));
   }
 
-  void saved(BuildContext ctx) {
+  void saved(BuildContext ctx) async {
     final _username = _user_cntrl.text;
     final _passsword = _pass_cntrl.text;
     if (_username == _passsword) {
+      final _shprf = await SharedPreferences.getInstance();
+      _shprf.setBool(SAVE_KEY_NAME, true);
       Navigator.of(ctx).pushReplacement(MaterialPageRoute(builder: (ctx) {
         return homescreen();
       }));
     } else {
       print('missmatch');
-     // setState(() {
-     //   _datamatch = false;
-    //  });
+      // setState(() {
+      //   _datamatch = false;
+      //  });
     }
   }
 }
