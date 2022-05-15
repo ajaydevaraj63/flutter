@@ -42,7 +42,7 @@ class _ScreensplashState extends State<Screensplash> {
 
   Future<void> goto() async {
     Timer(Duration(seconds: 2), () {
-      Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx) {
         return login();
       }));
     });

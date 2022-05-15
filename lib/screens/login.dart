@@ -1,4 +1,7 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:loginapp11vedio/homescreen.dart';
 
 class login extends StatefulWidget {
   login({Key? key}) : super(key: key);
@@ -29,7 +32,7 @@ class _loginState extends State<login> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
-              margin: EdgeInsets.all(3),
+              //margin: EdgeInsets.all(12),
               height: 700,
               width: 750,
               decoration: BoxDecoration(
@@ -40,35 +43,32 @@ class _loginState extends State<login> {
                 key: _formkey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(3.0),
+                      padding: const EdgeInsets.all(2.0),
                       child: CircleAvatar(
+                        radius: 45,
                         backgroundImage: AssetImage(
                             'assets/images/istockphoto-1151170153-612x612.jpg'),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(3.0),
-                      child: TextFormField(
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'error1';
-                          } else {
-                            return null;
-                          }
-                        },
-                        controller: _user_cntrl,
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(), hintText: 'username'),
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
+                    TextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'error1';
+                        } else {
+                          return null;
+                        }
+                      },
+                      controller: _user_cntrl,
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(), hintText: 'username'),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(3),
+                      padding: const EdgeInsets.all(2),
                       child: TextFormField(
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -91,30 +91,14 @@ class _loginState extends State<login> {
                             fontWeight: FontWeight.bold,
                           )),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Visibility(
-                              visible: !_datamatch,
-                              child: Text(
-                                'invalid password and email',
-                                style: TextStyle(color: Colors.red),
-                              )),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ElevatedButton.icon(
-                                onPressed: () {
-                                  if (_formkey.currentState!.validate())
-                                    saved(context);
-                                },
-                                icon: Icon(Icons.check),
-                                label: Text('login')),
-                          ),
-                        ],
-                      ),
-                    )
+                   
+                    ElevatedButton.icon(
+                        onPressed: () {
+                          if (_formkey.currentState!.validate())
+                            saved(context);
+                        },
+                        icon: Icon(Icons.check),
+                        label: Text('login'))
                   ],
                 ),
               ),
@@ -127,12 +111,14 @@ class _loginState extends State<login> {
     final _username = _user_cntrl.text;
     final _passsword = _pass_cntrl.text;
     if (_username == _passsword) {
-      print('usr pswd match');
+      Navigator.of(ctx).pushReplacement(MaterialPageRoute(builder: (ctx) {
+        return homescreen();
+      }));
     } else {
       print('missmatch');
-      // setState(() {
-      // _datamatch = false;
-      //});
+     // setState(() {
+     //   _datamatch = false;
+    //  });
     }
   }
 }
