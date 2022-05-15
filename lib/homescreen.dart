@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:loginapp11vedio/screens/login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+const SAVE_KEY_NAME = 'userlogin';
 
 class homescreen extends StatelessWidget {
   const homescreen({Key? key}) : super(key: key);
@@ -21,7 +24,9 @@ class homescreen extends StatelessWidget {
     );
   }
 
-  void signout(BuildContext cxt) {
+  void signout(BuildContext cxt) async {
+    final _shprf = await SharedPreferences.getInstance();
+    await _shprf.clear();
     Navigator.of(cxt).pushAndRemoveUntil(MaterialPageRoute(builder: (cxt) {
       return login();
     }), (route) => false);
