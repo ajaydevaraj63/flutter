@@ -37,6 +37,7 @@ class _loginState extends State<login> {
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Form(
+                key: _formkey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -51,6 +52,13 @@ class _loginState extends State<login> {
                     Padding(
                       padding: const EdgeInsets.all(3.0),
                       child: TextFormField(
+                        validator: (_) {
+                          if (_datamatch) {
+                            return null;
+                          } else {
+                            return 'error';
+                          }
+                        },
                         controller: _user_cntrl,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(), hintText: 'username'),
@@ -62,6 +70,13 @@ class _loginState extends State<login> {
                     Padding(
                       padding: const EdgeInsets.all(3),
                       child: TextFormField(
+                          validator: (_) {
+                            if (_datamatch) {
+                              return null;
+                            } else {
+                              return 'error';
+                            }
+                          },
                           controller: _pass_cntrl,
                           obscureText: true,
                           decoration: InputDecoration(
@@ -86,6 +101,7 @@ class _loginState extends State<login> {
                             padding: const EdgeInsets.all(8.0),
                             child: ElevatedButton.icon(
                                 onPressed: () {
+                              if( _formkey.currentState!.validate())
                                   saved(context);
                                 },
                                 icon: Icon(Icons.check),
@@ -110,27 +126,8 @@ class _loginState extends State<login> {
       setState(() {
         _datamatch = false;
       });
-      ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(
-          backgroundColor: Colors.red,
-          behavior: SnackBarBehavior.floating,
-          margin: EdgeInsets.all(2),
-          content: Text('invalid password')));
-
-      showDialog(
-          context: ctx,
-          builder: (ctx1) {
-            return AlertDialog(
-              title: Text('error'),
-              content: Text('error message'),
-              actions: [
-                TextButton(
-                    onPressed: (() {
-                      Navigator.of(ctx1).pop();
-                    }),
-                    child: Text('close'))
-              ],
-            );
-          });
+    
+         
     }
   }
 }
