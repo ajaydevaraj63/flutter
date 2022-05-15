@@ -13,6 +13,7 @@ class _loginState extends State<login> {
   final _pass_cntrl = TextEditingController();
 
   bool _datamatch = true;
+  final _formkey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
