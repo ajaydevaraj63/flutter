@@ -52,11 +52,11 @@ class _loginState extends State<login> {
                     Padding(
                       padding: const EdgeInsets.all(3.0),
                       child: TextFormField(
-                        validator: (_) {
-                          if (_datamatch) {
-                            return null;
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'error1';
                           } else {
-                            return 'error';
+                            return null;
                           }
                         },
                         controller: _user_cntrl,
@@ -70,12 +70,17 @@ class _loginState extends State<login> {
                     Padding(
                       padding: const EdgeInsets.all(3),
                       child: TextFormField(
-                          validator: (_) {
-                            if (_datamatch) {
-                              return null;
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'error1';
                             } else {
-                              return 'error';
+                              return null;
                             }
+                            ////if (_datamatch) {
+                            //  return null;
+                            //// } else {
+                            //   return 'error';
+                            //}
                           },
                           controller: _pass_cntrl,
                           obscureText: true,
@@ -101,8 +106,8 @@ class _loginState extends State<login> {
                             padding: const EdgeInsets.all(8.0),
                             child: ElevatedButton.icon(
                                 onPressed: () {
-                              if( _formkey.currentState!.validate())
-                                  saved(context);
+                                  if (_formkey.currentState!.validate())
+                                    saved(context);
                                 },
                                 icon: Icon(Icons.check),
                                 label: Text('login')),
@@ -122,12 +127,12 @@ class _loginState extends State<login> {
     final _username = _user_cntrl.text;
     final _passsword = _pass_cntrl.text;
     if (_username == _passsword) {
+      print('usr pswd match');
     } else {
-      setState(() {
-        _datamatch = false;
-      });
-    
-         
+      print('missmatch');
+      // setState(() {
+      // _datamatch = false;
+      //});
     }
   }
 }
